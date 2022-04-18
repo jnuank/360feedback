@@ -1,6 +1,9 @@
 apiVersion: skaffold/v2beta26
 kind: Config
 build:
+  tagPolicy:
+    envTemplate:
+      template: '{{ .REVISION }}'
   artifacts:
   - image: feedback-api
     context: ../feedback
@@ -8,3 +11,10 @@ build:
       dockerfile: ../environments/Dockerfile
   local:
     useBuildkit: true
+deploy:
+  helm:
+    releases:
+    - name: feedback-api
+      chartPath: charts
+      artifactOverrides:
+        image: feedback-api
