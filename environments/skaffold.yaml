@@ -1,0 +1,10 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+build:
+  artifacts:
+  - image: feedback-api
+    context: ../feedback
+    docker:
+      dockerfile: ../environments/Dockerfile
+  local:
+    useBuildkit: true
