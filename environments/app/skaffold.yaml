@@ -6,9 +6,9 @@ build:
       template: '{{ .REVISION }}'
   artifacts:
   - image: feedback-api
-    context: ../feedback
+    context: ../../feedback
     docker:
-      dockerfile: ../environments/Dockerfile
+      dockerfile: ../environments/app/Dockerfile
   local:
     useBuildkit: true
 deploy:

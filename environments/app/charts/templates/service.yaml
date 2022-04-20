@@ -3,7 +3,10 @@ kind: Service
 metadata:
   name: {{ .Chart.Name }}-svc
 spec:
+  selector:
+    app: {{ .Chart.Name }}
   type: {{ .Values.serviceType }}
   ports:
   - port: 18080
     targetPort: 8080
+  type: NodePort

@@ -1,0 +1,12 @@
+package com.example.feedback.repositry
+
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
+import java.util.*
+
+@Repository
+interface EpisodeRepositry: JpaRepository<Episode, Long> {
+
+    override fun findById(id: Long): Optional<Episode>
+    override fun findAll(): MutableList<Episode>
+}
