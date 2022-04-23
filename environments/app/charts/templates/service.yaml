@@ -9,4 +9,3 @@ spec:
   ports:
   - port: 18080
     targetPort: 8080
-  type: NodePort
