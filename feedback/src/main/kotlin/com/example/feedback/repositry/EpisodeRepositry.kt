@@ -5,8 +5,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface EpisodeRepositry: JpaRepository<Episode, String> {
+interface EpisodeRepositry: JpaRepository<Episode, UUID> {
 
-    override fun findById(id: String): Optional<Episode>
-    override fun findAll(): MutableList<Episode>
+
 }

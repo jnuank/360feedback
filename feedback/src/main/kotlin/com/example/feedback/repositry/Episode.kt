@@ -1,17 +1,15 @@
 package com.example.feedback.repositry
 
 import java.time.LocalDate
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import java.util.*
+import javax.persistence.*
 
 @Entity
 @Table(name = "エピソード", schema = "フィードバック")
 data class Episode(
     @Id
     @Column(name = "Id")
-    val id: String,
+    val id: UUID,
 
     @Column(name = "日付")
     val date: LocalDate,

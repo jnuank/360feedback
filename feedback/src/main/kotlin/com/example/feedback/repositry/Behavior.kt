@@ -1,5 +1,6 @@
 package com.example.feedback.repositry
 
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -7,7 +8,7 @@ import javax.persistence.*
 data class Behavior(
     @Id
     @Column(name = "Id")
-    val id: String,
+    val id: UUID,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "エピソードid")
