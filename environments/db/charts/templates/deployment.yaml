@@ -11,6 +11,10 @@ spec:
       labels:
         app: {{ .Chart.Name }}
     spec:
+      volumes:
+        - name: data
+          hostPath:
+            path: /data # kind cluster 
       containers:
       - name: {{ .Chart.Name }}
         image: {{ .Values.image }}
@@ -24,3 +28,6 @@ spec:
         env:
           - name: POSTGRES_PASSWORD
             value: pasword
+        volumeMounts:
+          - name: data
+            mountPath: /var/lib/postgresql/data
