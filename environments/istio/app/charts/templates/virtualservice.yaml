@@ -1,0 +1,45 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: feedback-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: feedback-vs
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - feedback-gateway
+  http:
+  - match:
+    - uri:
+        exact: /feedback-db
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: feedback-db-svc 
+        port:
+          number: 15432
+  - match:
+    - uri:
+        prefix: "/feedback/"
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: feedback-api-svc
+        port:
+          number: 18080

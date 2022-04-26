@@ -1,0 +1,4 @@
+apiVersion: v1
+description: feedback-vs with helm
+name: feedback-vs
+version: 0.1.0
