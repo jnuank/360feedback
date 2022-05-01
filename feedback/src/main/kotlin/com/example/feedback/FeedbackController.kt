@@ -25,9 +25,9 @@ class FeedbackController (
     }
 
     @GetMapping("/episodes")
-    fun getAll(@RequestParam(name = "memberName", defaultValue="") memberName: String) : List<BehaviorJson> {
+    fun getAll(@RequestParam(name = "memberName", defaultValue="") memberName: String) : BehaviorsJson {
         val contentsList = repository.findAll()
-        return contentsList.filter { it.member.name == memberName }.map { it.toJson() }
+        return contentsList.filter { it.member.name == memberName }.map { it.toJson() }.let(::BehaviorsJson)
     }
 
     @PostMapping("/episodes")
@@ -48,6 +48,10 @@ class FeedbackController (
         repository.save(behaviorEntity)
     }
 }
+
+data class BehaviorsJson(
+    val behaviors: List<BehaviorJson>
+)
 
 private fun Behavior.toJson() =
     BehaviorJson(
