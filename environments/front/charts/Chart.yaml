@@ -1,0 +1,4 @@
+apiVersion: v1
+description: feedback-front with helm
+name: feedback-front
+version: 0.1.0

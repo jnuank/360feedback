@@ -1,0 +1,24 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+build:
+  tagPolicy:
+    envTemplate:
+      template: '{{ .REVISION }}'
+  artifacts:
+  - image: feedback-front
+    context: ../../feedback_front
+    docker:
+      dockerfile: ../environments/front/Dockerfile
+      buildArgs:
+        endpoint: 'feedback'
+  local:
+    useBuildkit: true
+deploy:
+  helm:
+    releases:
+    - name: feedback-front
+      chartPath: charts
+      setValues:
+        imagePullPolicy: Always
+      artifactOverrides:
+        image: feedback-front
