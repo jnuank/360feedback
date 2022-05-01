@@ -43,3 +43,21 @@ spec:
         host: feedback-api-svc
         port:
           number: 18080
+  - match:
+    - uri:
+        prefix: "/feedback-front"
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: feedback-front-svc
+        port:
+          number: 18090
+  - match:
+    - uri:
+        prefix: "/main.dart.js"
+    route:
+    - destination:
+        host: "feedback-front-svc"
+        port:
+          number: 18090
