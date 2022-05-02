@@ -9,8 +9,9 @@ import '../models/behavior.dart';
 const String feedbackApi = String.fromEnvironment('FEEDBACK_ENDPOINT');
 
 Future<Feedbacks> fetchFeedback(String memberName) async {
-  final res = await http.get(Uri.parse('$feedbackApi/episodes?memberName=$memberName') );
-  if (res.statusCode == 200){
+  final res =
+      await http.get(Uri.parse('$feedbackApi/episodes?memberName=$memberName'));
+  if (res.statusCode == 200) {
     return Feedbacks.fromJson(jsonDecode(utf8.decode(res.bodyBytes)));
   } else {
     throw Exception('Failed to load feedback');
@@ -30,7 +31,8 @@ Future<String> registerEpisode(Episode episode) async {
 
 Future<int> registerBehavior(Behavior behavior, String episodeId) async {
   print(Uri.parse('$feedbackApi/episodes/$episodeId/behavior'));
-  final res = await http.post(Uri.parse('$feedbackApi/episodes/$episodeId/behavior'),
+  final res = await http.post(
+      Uri.parse('$feedbackApi/episodes/$episodeId/behavior'),
       body: json.encode(behavior.toJson()),
       headers: {"Content-Type": "application/json"});
   if (res.statusCode == 200) {
