@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:feedback_front/models/episode.dart';
 import 'package:feedback_front/models/feedback.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,4 +15,13 @@ Future<Feedbacks> fetchFeedback(String memberName) async {
   }
 }
 
-//Future<void> registerFeedback()
+Future<String> registerEpisode(Episode episode) async {
+  final res = await http.post(Uri.parse('$feedbackApi/episodes'),
+      body: json.encode(episode.toJson()),
+      headers: {"Content-Type": "application/json"});
+  if (res.statusCode == 200) {
+    return res.body;
+  } else {
+    throw Exception('Failed to post episode');
+  }
+}

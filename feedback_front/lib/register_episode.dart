@@ -1,16 +1,17 @@
 
 
+import 'package:feedback_front/api/feedback_api.dart';
+import 'package:feedback_front/register_behavior.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'models/episode.dart';
 
 class RegisterEpisode extends StatelessWidget {
   RegisterEpisode({Key? key}) : super(key: key);
 
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _episodeController = TextEditingController();
-  final TextEditingController _behaviorController = TextEditingController();
-  final TextEditingController _memberController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -18,24 +19,36 @@ class RegisterEpisode extends StatelessWidget {
       body:
         Column(
           children:  [
-            Text('日付'),
+            const Text('日付'),
             TextField(controller: _dateController,),
-            Text('エピソード'),
+            const Text('エピソード'),
             TextField(controller: _episodeController,),
-            Text('行動'),
-            TextField(controller: _behaviorController,),
-            Text('メンバー名'),
-            TextField(controller: _memberController,),
             ElevatedButton(
-                child: Text('登録'),
-                onPressed: () => {
-                  print(_dateController.text),
-                  print(_behaviorController.text),
-                  print(_episodeController.text),
-                  print(_memberController.text),
+                child: const Text('登録'),
+                onPressed: () async {
+                  String result = await addEpisode();
+                  if (result != 'not responded'){
+                    print('ok');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => RegisterBehavior(episodeId: result))
+                    );
+                  }
             }),
           ],
         ),
     );
+  }
+
+  Future<String> addEpisode()  {
+    final episode = Episode(_episodeController.text, DateTime.parse(_dateController.text));
+    Future<String> res = Future.value('null');
+    try {
+       res = registerEpisode(episode);
+    } on Exception catch(e) {
+      print(e);
+      return Future.value('not responded');
+    }
+    return res;
   }
 }
