@@ -94,5 +94,3 @@ class _MyHomePage extends State<RegisterEpisode> {
     ).toList();
   }
 }
-
-
