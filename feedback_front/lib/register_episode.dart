@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'api/feedback_api.dart';
@@ -21,11 +22,7 @@ class _MyHomePage extends State<RegisterEpisode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          body: Column(
             children: [
               Container(
                 padding: const EdgeInsets.all(8),
@@ -50,28 +47,52 @@ class _MyHomePage extends State<RegisterEpisode> {
                   },
                 ),
               ),
-              _result == null ? Container() : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _result!.behaviors.map((behavior) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          'エピソード： ${behavior.episode}'
-                      ),
-                      Text(
-                          '行動： ${behavior.behavior}'
-                      ),
-                      const Padding(padding: EdgeInsets.all(8)),
-                    ],
-                  );
-                }).toList(),
-              ),
+              _result == null ? Container() :
+                  Scrollbar(
+                    isAlwaysShown: true,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: DataTable(
+                            dataRowHeight: 100,
+                            columnSpacing: 300,
+                            sortAscending: true,
+                            sortColumnIndex: 0,
+                            columns: _createColumns(),
+                            rows: _createRows()
+                        ),
+                    ),
+                  ),
             ],
           ),
-        ),
-      ),
     );
   }
+
+  List<DataColumn> _createColumns() {
+    return  const [
+      DataColumn(
+
+          label: SizedBox(
+            width: 300,
+            child: Text('エピソード'),
+          )
+      ),
+      DataColumn(
+          label: SizedBox(
+            width: 300,
+            child: Text('行動'),
+          ),
+      ),
+    ];
+  }
+
+  List<DataRow> _createRows() {
+    return _result!.behaviors.map((behavior) =>
+      DataRow(cells: [
+        DataCell(Text(behavior.episode, softWrap: true, textWidthBasis: TextWidthBasis.parent,)),
+        DataCell(Text(behavior.behavior, softWrap: true, textWidthBasis: TextWidthBasis.parent,)),
+      ])
+    ).toList();
+  }
 }
+
 
