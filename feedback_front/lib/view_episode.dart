@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'api/feedback_api.dart';
 import 'models/feedback.dart';
 
-class RegisterEpisode extends StatefulWidget {
-  const RegisterEpisode({Key? key}) : super(key: key);
+class ViewEpisode extends StatefulWidget {
+  const ViewEpisode({Key? key}) : super(key: key);
 
   @override
   _MyHomePage createState() => _MyHomePage();
@@ -15,7 +15,7 @@ class RegisterEpisode extends StatefulWidget {
 
 
 
-class _MyHomePage extends State<RegisterEpisode> {
+class _MyHomePage extends State<ViewEpisode> {
 
   Feedbacks? _result = null;
 

@@ -4,6 +4,7 @@ import 'package:feedback_front/models/feedback.dart';
 import 'package:http/http.dart' as http;
 
 const String feedbackApi = String.fromEnvironment('FEEDBACK_ENDPOINT');
+
 Future<Feedbacks> fetchFeedback(String memberName) async {
   final res = await http.get(Uri.parse('$feedbackApi/episodes?memberName=$memberName') );
   if (res.statusCode == 200){
@@ -12,3 +13,5 @@ Future<Feedbacks> fetchFeedback(String memberName) async {
     throw Exception('Failed to load feedback');
   }
 }
+
+//Future<void> registerFeedback()

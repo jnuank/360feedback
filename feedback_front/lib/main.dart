@@ -1,6 +1,7 @@
 import 'package:feedback_front/api/feedback_api.dart';
 import 'package:feedback_front/models/feedback.dart';
 import 'package:feedback_front/models/notifier/feedback_notifier.dart';
+import 'package:feedback_front/register_episode.dart';
 import 'package:feedback_front/view_episode.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,20 +35,30 @@ class TopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          child: const Text('detail'),
-          onPressed: () => {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) => const RegisterEpisode(),
-              )
-            )
-          },
-        ),
+      body: Column(
+        children: [
+          ElevatedButton(
+           child: const Text('detail'),
+           onPressed: () => {
+             Navigator.of(context).push(
+               MaterialPageRoute(
+                 builder: (BuildContext context) => const ViewEpisode(),
+               )
+             )
+           },
+          ),
+          ElevatedButton(
+              child: const Text('登録'),
+              onPressed: () => {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>  RegisterEpisode(),)
+                )
+              },
+          ),
+        ],
       )
     );
   }
-
 }
 
