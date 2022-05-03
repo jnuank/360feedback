@@ -45,7 +45,7 @@ jobs:
           
       - name: Build image and push
         env:
-          API_ENDPOINT: ${{ .secrets.API_ENDPOINT }}
+          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
         run: |
           cd environments/app
           skaffold build -t ${{ github.sha }} -q --push > build_api.json
