@@ -42,6 +42,15 @@ jobs:
           curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
           install skaffold /usr/local/bin/
           skaffold version
+
+      - name: Cache skaffold image builds
+        uses: actions/cache@v3
+        with:
+          path: ~/.skaffold/
+          key: fixed-${{ github.sha }}
+          restore-keys: |
+            fixed-${{ github.sha }}
+            fixed-
           
       - name: Build image and push from api
         run: |
