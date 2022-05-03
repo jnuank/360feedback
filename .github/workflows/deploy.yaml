@@ -73,7 +73,3 @@ jobs:
         run: |
           cd environments/front
           skaffold deploy -p prd -n feedback --build-artifacts=build_front.json
-
-      - name: run kubectl
-        run: |
-          kubectl get po -n feedback
