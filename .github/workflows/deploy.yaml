@@ -47,7 +47,7 @@ jobs:
           command: build -t ${{ github.sha }} -q --push > build.json
           tag: ${{ github.sha }}
           push: true
-          working-directory: ./360feedback/environments/app
+          working-directory: 360feedback/environments/app
 
 #        run: |
 #          cd 360feedback/environments/app
@@ -59,7 +59,7 @@ jobs:
           command: deploy -p prd -n feedback --build-artifacts=build.json
           tag: ${{ github.sha }}
           push: true
-          working-directory: ./360feedback/environments/app
+          working-directory: 360feedback/environments/app
 
 #        run: |
 #          cd 360feedback/environments/app
