@@ -1,20 +1,21 @@
 apiVersion: skaffold/v2beta26
 kind: Config
 build:
-  tagPolicy:
-    envTemplate:
-      template: '{{ .REVISION }}'
   artifacts:
-  - image: feedback-api
+  - image: 839217260075.dkr.ecr.ap-northeast-1.amazonaws.com/feedback/feedback-api
     context: ../../feedback
     docker:
       dockerfile: ../environments/app/Dockerfile
   local:
     useBuildkit: true
-deploy:
-  helm:
-    releases:
-    - name: feedback-api
-      chartPath: charts
-      artifactOverrides:
-        image: feedback-api
+profiles:
+- name: prd
+    deploy:
+      helm:
+        releases:
+        - name: feedback-api
+          chartPath: charts
+          setValues:
+            imagePullPolicy: Always 
+          artifactOverrides:
+            image: 839217260075.dkr.ecr.ap-northeast-1.amazonaws.com/feedback/feedback-api

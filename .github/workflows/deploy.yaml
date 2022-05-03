@@ -41,7 +41,14 @@ jobs:
         run: |
           kubectl get po -n feedback
 
-#      - name: Build image
-#        env:
-#
-#        run: |
+      - name: Build image and push
+        run: |
+          skaffold build -t ${{ github.sha }} -q --push > build.json
+
+      - name: Deploy
+        run: |
+          skaffold deploy -n feedback --build-artifacts=build.json
+
+      - name: run kubectl
+        run: |
+          kubectl get po -n feedback
