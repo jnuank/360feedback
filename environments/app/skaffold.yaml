@@ -10,12 +10,12 @@ build:
     useBuildkit: true
 profiles:
 - name: prd
-    deploy:
-      helm:
-        releases:
-        - name: feedback-api
-          chartPath: charts
-          setValues:
-            imagePullPolicy: Always 
-          artifactOverrides:
-            image: 839217260075.dkr.ecr.ap-northeast-1.amazonaws.com/feedback/feedback-api
+  deploy:
+    helm:
+      releases:
+      - name: feedback-api
+        chartPath: charts
+        setValues:
+          imagePullPolicy: Always
+        artifactOverrides:
+          image: 839217260075.dkr.ecr.ap-northeast-1.amazonaws.com/feedback/feedback-api
