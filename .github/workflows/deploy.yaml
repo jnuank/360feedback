@@ -43,19 +43,25 @@ jobs:
           install skaffold /usr/local/bin/
           skaffold version
           
-      - name: Build image and push
-        env:
-          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
+      - name: Build image and push from api
         run: |
           cd environments/app
           skaffold build -t ${{ github.sha }} -q --push > build_api.json
+
+      - name: Build image and push from front
+        env:
+          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
+        run: |
           cd environments/front
           skaffold build -t ${{ github.sha }} -q --push > build_front.json
 
-      - name: Deploy
+      - name: Deploy to api
         run: |
           cd environments/app
           skaffold deploy -p prd -n feedback --build-artifacts=build_api.json
+
+      - name: Deploy to front
+        run: |
           cd environments/front
           skaffold deploy -p prd -n feedback --build-artifacts=build_front.json
 
