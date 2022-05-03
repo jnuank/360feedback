@@ -40,6 +40,8 @@ jobs:
       - name: run kubectl
         run: |
           kubectl get po -n feedback
+          pwd
+          ls
 
       - name: Build image and push
         uses: hiberbee/github-action-skaffold@1.17.0
@@ -48,6 +50,7 @@ jobs:
           tag: ${{ github.sha }}
           push: true
           working-directory: 360feedback/environments/app
+
 
 #        run: |
 #          cd 360feedback/environments/app
