@@ -44,11 +44,11 @@ jobs:
       - name: Build image and push
         uses: hiberbee/github-action-skaffold@1.17.0
         with:
-          command: build -t ${{ github.sha }} -q --push > build.json
+          command: |
+            build -t ${{ github.sha }} -q --push > build.json
           tag: ${{ github.sha }}
           push: true
           working-directory: environments/app
-
 
 #        run: |
 #          cd 360feedback/environments/app
@@ -57,9 +57,8 @@ jobs:
       - name: Deploy
         uses: hiberbee/github-action-skaffold@1.17.0
         with:
-          command: deploy -p prd -n feedback --build-artifacts=build.json
-          tag: ${{ github.sha }}
-          push: true
+          command: |
+            deploy -p prd -n feedback --build-artifacts=build.json
           working-directory: environments/app
 
 #        run: |
