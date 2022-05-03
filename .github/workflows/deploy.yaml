@@ -44,29 +44,20 @@ jobs:
           skaffold version
           
       - name: Build image and push
+        env:
+          API_ENDPOINT: ${{ .secrets.API_ENDPOINT }}
         run: |
-         cd environments/app
-         skaffold build -t ${{ github.sha }} -q --push > build.json
-
-#         uses: hiberbee/github-action-skaffold@1.17.0
-#         with:
-#           command: |
-#             build -t ${{ github.sha }} -q --push > build.json
-#           tag: ${{ github.sha }}
-#           push: true
-#           working-directory: environments/app
-
+          cd environments/app
+          skaffold build -t ${{ github.sha }} -q --push > build_api.json
+          cd environments/front
+          skaffold build -t ${{ github.sha }} -q --push > build_front.json
 
       - name: Deploy
         run: |
-         cd environments/app
-         skaffold deploy -p prd -n feedback --build-artifacts=build.json
-
-#         uses: hiberbee/github-action-skaffold@1.17.0
-#         wiah:
-#           command: |
-#             deploy -p prd -n feedback --build-artifacts=build.json
-#           working-directory: environments/app
+          cd environments/app
+          skaffold deploy -p prd -n feedback --build-artifacts=build_api.json
+          cd environments/front
+          skaffold deploy -p prd -n feedback --build-artifacts=build_front.json
 
       - name: run kubectl
         run: |

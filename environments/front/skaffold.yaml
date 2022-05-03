@@ -5,20 +5,22 @@ build:
     envTemplate:
       template: '{{ .REVISION }}'
   artifacts:
-  - image: feedback-front
+  - image: 839217260075.dkr.ecr.ap-northeast-1.amazonaws.com/feedback/feedback-front
     context: ../../feedback_front
     docker:
       dockerfile: ../environments/front/Dockerfile
       buildArgs:
-        endpoint: 'feedback'
+        endpoint: '{{ .API_ENDPOINT }}'
   local:
     useBuildkit: true
-deploy:
-  helm:
-    releases:
-    - name: feedback-front
-      chartPath: charts
-      setValues:
-        imagePullPolicy: Always
-      artifactOverrides:
-        image: feedback-front
+profiles:
+- name: prd
+  deploy:
+    helm:
+      releases:
+      - name: feedback-front
+        chartPath: charts
+        setValues:
+          imagePullPolicy: Always
+        artifactOverrides:
+          image: 839217260075.dkr.ecr.ap-northeast-1.amazonaws.com/feedback/feedback-front
