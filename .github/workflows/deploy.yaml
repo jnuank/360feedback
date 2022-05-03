@@ -37,34 +37,37 @@ jobs:
           username: ${{ secrets.AWS_ACCESS_KEY_ID }}
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: run kubectl
+      - name: Install skaffold
         run: |
-          kubectl get po -n feedback
-
+          curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+          install skaffold /usr/local/bin/
+          skaffold version
+          
       - name: Build image and push
-        uses: hiberbee/github-action-skaffold@1.17.0
-        with:
-          command: |
-            build -t ${{ github.sha }} -q --push > build.json
-          tag: ${{ github.sha }}
-          push: true
-          working-directory: environments/app
+        run: |
+         cd environments/app
+         skaffold build -t ${{ github.sha }} -q --push > build.json
 
-#        run: |
-#          cd 360feedback/environments/app
-#          skaffold build -t ${{ github.sha }} -q --push > build.json
+#         uses: hiberbee/github-action-skaffold@1.17.0
+#         with:
+#           command: |
+#             build -t ${{ github.sha }} -q --push > build.json
+#           tag: ${{ github.sha }}
+#           push: true
+#           working-directory: environments/app
+
 
       - name: Deploy
-        uses: hiberbee/github-action-skaffold@1.17.0
-        with:
-          command: |
-            deploy -p prd -n feedback --build-artifacts=build.json
-          working-directory: environments/app
+        run: |
+         cd environments/app
+         skaffold deploy -p prd -n feedback --build-artifacts=build.json
 
-#        run: |
-#          cd 360feedback/environments/app
-#          skaffold deploy -p prd -n feedback --build-artifacts=build.json
-#
+#         uses: hiberbee/github-action-skaffold@1.17.0
+#         wiah:
+#           command: |
+#             deploy -p prd -n feedback --build-artifacts=build.json
+#           working-directory: environments/app
+
       - name: run kubectl
         run: |
           kubectl get po -n feedback
