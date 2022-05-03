@@ -1,0 +1,47 @@
+name: deploy
+on:
+  workflow_dispatch:
+    inputs:
+      execution:
+        description: 'input "run"'
+        required: true
+        default: ''
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v2.1
+
+      - name: udpate kubeconfig
+        env:
+          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
+        run: |
+          aws eks update-kubeconfig --name ${CLUSTER_NAME}
+
+      - name: Login to ECR
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY }}
+          username: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: run kubectl
+        run: |
+          kubectl get po -n feedback
+
+#      - name: Build image
+#        env:
+#
+#        run: |
