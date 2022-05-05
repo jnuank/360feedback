@@ -69,11 +69,11 @@ jobs:
           VALUE_FILE: 'charts/values.yaml'
         run: |
           cd environments/app
-          skaffold deploy -p prd -n feedback --build-artifacts=build_api.json
+          skaffold deploy -n feedback --build-artifacts=build_api.json
 
       - name: Deploy to front
         env:
           VALUE_FILE: 'charts/values.yaml'
         run: |
           cd environments/front
-          skaffold deploy -p prd -n feedback --build-artifacts=build_front.json
+          skaffold deploy -n feedback --build-artifacts=build_front.json
