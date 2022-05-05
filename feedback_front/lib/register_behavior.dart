@@ -25,10 +25,7 @@ class RegisterBehavior extends StatelessWidget {
             child: const Text('登録'),
             onPressed: () async {
               addBehavior();
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => const TopPage())
-                );
+              Navigator.pushNamed(context, '/');
             },
           )
         ],

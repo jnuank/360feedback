@@ -13,14 +13,12 @@ build:
         endpoint: '{{ .API_ENDPOINT }}'
   local:
     useBuildkit: true
-profiles:
-- name: prd
-  deploy:
-    helm:
-      releases:
-      - name: feedback-front
-        chartPath: charts
-        setValues:
-          imagePullPolicy: Always
-        artifactOverrides:
-          image: 839217260075.dkr.ecr.ap-northeast-1.amazonaws.com/feedback/feedback-front
+deploy:
+  helm:
+    releases:
+    - name: feedback-front
+      chartPath: charts
+      valuesFiles:
+        - '{{ .VALUE_FILE }}'
+      artifactOverrides:
+        image: 839217260075.dkr.ecr.ap-northeast-1.amazonaws.com/feedback/feedback-front

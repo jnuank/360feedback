@@ -5,8 +5,10 @@ import 'package:feedback_front/register_episode.dart';
 import 'package:feedback_front/view_episode.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void main() {
+  setUrlStrategy(PathUrlStrategy());
   runApp(
       ChangeNotifierProvider(
         create: (context) => FeedBackNotifier(),
@@ -21,6 +23,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Feedback',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const TopPage(),
+        '/view': (context) => const ViewEpisode(),
+        '/register': (context) => RegisterEpisode(),
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -40,20 +48,13 @@ class TopPage extends StatelessWidget {
           ElevatedButton(
            child: const Text('detail'),
            onPressed: () => {
-             Navigator.of(context).push(
-               MaterialPageRoute(
-                 builder: (BuildContext context) => const ViewEpisode(),
-               )
-             )
+             Navigator.pushNamed(context, '/view')
            },
           ),
           ElevatedButton(
               child: const Text('登録'),
               onPressed: () => {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>  RegisterEpisode(),)
-                )
+                Navigator.pushNamed(context, '/register')
               },
           ),
         ],
