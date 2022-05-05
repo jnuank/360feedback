@@ -24,7 +24,7 @@ jobs:
       - name: Install kubectl
         uses: azure/setup-kubectl@v2.1
         with:
-          version: 1.23.2
+          version: v1.23.2
 
       - name: udpate kubeconfig
         env:
