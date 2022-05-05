@@ -1,8 +1,8 @@
-apiVersion: skaffold/v2beta26
+apiVersion: skaffold/v2beta28
 kind: Config
 build:
   artifacts: 
-  - image: feedback-db
+  - image: 839217260075.dkr.ecr.ap-northeast-1.amazonaws.com/feedback/feedback-db
     context: .
     docker:
       dockerfile: ./Dockerfile
@@ -13,5 +13,7 @@ deploy:
     releases:
     - name: feedback-db
       chartPath: charts
+      setValues:
+        imagePullPolicy: Always
       artifactOverrides:
-        image: feedback-db
+        image: 839217260075.dkr.ecr.ap-northeast-1.amazonaws.com/feedback/feedback-db
