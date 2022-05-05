@@ -67,6 +67,7 @@ jobs:
 
       - name: Deploy to front
         env:
+          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
           VALUE_FILE: 'charts/valuesPrd.yaml'
         run: |
           cd environments/front
