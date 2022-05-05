@@ -1,4 +1,4 @@
-name: deploy
+name: deploy-skaffold-run
 on:
   workflow_dispatch:
     inputs:
