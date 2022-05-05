@@ -45,7 +45,7 @@ spec:
           number: 18080
   - match:
     - uri:
-        prefix: "/feedback-front"
+        prefix: "/"
     rewrite:
       uri: "/"
     route:
