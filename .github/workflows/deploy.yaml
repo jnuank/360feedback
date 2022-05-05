@@ -51,6 +51,10 @@ jobs:
           restore-keys: |
             fixed-${{ github.sha }}
             fixed-
+
+      - name: checking kubectl
+        run: |
+          kubectl version
           
       - name: Build image and push from api
         run: |
