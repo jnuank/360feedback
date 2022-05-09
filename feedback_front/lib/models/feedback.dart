@@ -23,11 +23,12 @@ class Feedbacks{
 @JsonSerializable()
 class FeedBack{
   final String id;
+  final DateTime date;
   final String episode;
   final String member;
   final String behavior;
 
-  FeedBack(this.id, this.episode, this.member, this.behavior);
+  FeedBack(this.id, this.date, this.episode, this.member, this.behavior);
 
   factory FeedBack.fromJson(Map<String, dynamic> json) => _$FeedBackFromJson(json);
   Map<String, dynamic> toJson() => _$FeedBackToJson(this);

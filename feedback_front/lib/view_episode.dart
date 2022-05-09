@@ -70,8 +70,14 @@ class _MyHomePage extends State<ViewEpisode> {
     return const [
       DataColumn(
         label: SizedBox(
+          width: 100,
+          child: Text('日付'),
+        ),
+      ),
+      DataColumn(
+        label: SizedBox(
           width: 400,
-          child: Text('エピソード'),
+          child: Text('出来事'),
         ),
       ),
       DataColumn(
@@ -86,6 +92,11 @@ class _MyHomePage extends State<ViewEpisode> {
   List<DataRow> _createRows() {
     return _result!.behaviors
         .map((behavior) => DataRow(cells: [
+              DataCell(Text(
+                behavior.date.toString(),
+                softWrap: true,
+                textWidthBasis: TextWidthBasis.parent,
+              )),
               DataCell(Text(
                 behavior.episode,
                 softWrap: true,

@@ -18,6 +18,7 @@ Map<String, dynamic> _$FeedbacksToJson(Feedbacks instance) => <String, dynamic>{
 
 FeedBack _$FeedBackFromJson(Map<String, dynamic> json) => FeedBack(
       json['id'] as String,
+      DateTime.parse(json['date'] as String),
       json['episode'] as String,
       json['member'] as String,
       json['behavior'] as String,
@@ -25,6 +26,7 @@ FeedBack _$FeedBackFromJson(Map<String, dynamic> json) => FeedBack(
 
 Map<String, dynamic> _$FeedBackToJson(FeedBack instance) => <String, dynamic>{
       'id': instance.id,
+      'date': instance.date.toIso8601String(),
       'episode': instance.episode,
       'member': instance.member,
       'behavior': instance.behavior,
