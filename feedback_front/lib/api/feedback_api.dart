@@ -10,11 +10,20 @@ const String feedbackApi = String.fromEnvironment('FEEDBACK_ENDPOINT');
 
 Future<Feedbacks> fetchFeedback(String memberName) async {
   final res =
-      await http.get(Uri.parse('$feedbackApi/episodes?memberName=$memberName'));
+      await http.get(Uri.parse('$feedbackApi/behaviors?memberName=$memberName'));
   if (res.statusCode == 200) {
     return Feedbacks.fromJson(jsonDecode(utf8.decode(res.bodyBytes)));
   } else {
     throw Exception('Failed to load feedback');
+  }
+}
+
+Future<Episodes> fetchEpisodes() async {
+  final res = await http.get(Uri.parse('$feedbackApi/episodes'));
+  if (res.statusCode == 200) {
+    return Episodes.fromJson(jsonDecode(utf8.decode(res.bodyBytes)));
+  } else {
+    throw Exception('Failed to load episodes');
   }
 }
 

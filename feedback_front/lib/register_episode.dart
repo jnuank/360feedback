@@ -42,7 +42,7 @@ class RegisterEpisode extends StatelessWidget {
 
   Future<String> addEpisode() {
     final episode =
-        Episode(_episodeController.text, DateTime.parse(_dateController.text));
+        Episode.of(_episodeController.text,DateTime.parse(_dateController.text));
     Future<String> res = Future.value('null');
     try {
       res = registerEpisode(episode);
