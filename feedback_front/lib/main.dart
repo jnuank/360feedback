@@ -3,6 +3,7 @@ import 'package:feedback_front/models/feedback.dart';
 import 'package:feedback_front/models/notifier/feedback_notifier.dart';
 import 'package:feedback_front/register_episode.dart';
 import 'package:feedback_front/view_behavior.dart';
+import 'package:feedback_front/view_episode.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
