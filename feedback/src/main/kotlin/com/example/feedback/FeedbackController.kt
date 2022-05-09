@@ -56,6 +56,7 @@ data class BehaviorsJson(
 private fun Behavior.toJson() =
     BehaviorJson(
         this.id.toString(),
+        this.episode.date,
         this.episode.contents,
         this.member.name,
         this.contents
@@ -63,6 +64,7 @@ private fun Behavior.toJson() =
 
 data class BehaviorJson(
     val id: String,
+    val date: LocalDate,
     val episode: String,
     val member: String,
     val behavior: String,
